@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Form</title>
+</head>
+<body>
+  <h1>Email Form</h1>
+  <form id="emailForm">
+    <label for="recipientEmail">Recipient's Email:</label>
+    <input type="email" id="recipientEmail" name="recipientEmail" required><br>
+    
+    <label for="message">Message:</label>
+    <textarea id="message" name="message" required></textarea><br>
+    
+    <button type="submit">Send Email</button>
+  </form>
+
+  <script>
+    document.getElementById('emailForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent the default form submission
+      
+      const recipientEmail = document.getElementById('recipientEmail').value;
+      const message = document.getElementById('message').value;
+      
+      // Here you would typically make an AJAX request or use fetch() to send data to a server-side script that can send the email
+      
+      // For example, using fetch() to send data to a server-side endpoint
+      fetch('/sendEmail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ recipientEmail, message }),
+      })
+      .then(response => {
+        if (response.ok) {
+          alert('Email sent successfully!');
+        } else {
+          alert('Error sending email.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error sending email.');
+      });
+    });
+  </script>
+</body>
+</html>
